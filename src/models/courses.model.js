@@ -9,17 +9,13 @@ const courseSchema = new Schema({
     type: Number,
     required: true,
   },
-  branchName: {
-    type: String,
-    required: true,
-  },
-  branchCode: {
-    type: Number,
-    required: true,
-  },
   duration: {
     type: Number,
     required: true,
+  },
+  branches: {
+    type: [Schema.ObjectId],
+    ref: "Branch",
   },
 });
 
