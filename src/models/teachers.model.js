@@ -39,6 +39,10 @@ const teacherSchema = new Schema({
     type: String,
     required: true,
   },
+  salary: {
+    type: Number,
+    required: true,
+  },
   contact: {
     mobileNo: {
       type: Number,
