@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import AddressSchema from "../utils/AddressSchema.js";
+import AddressSchema from "../../utils/AddressSchema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 

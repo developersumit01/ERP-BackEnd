@@ -1,41 +1,25 @@
 import mongoose, { Schema } from "mongoose";
-import AddressSchema from "../utils/AddressSchema";
+import AddressSchema from "../../utils/AddressSchema";
 
-const teacherSchema = new Schema({
-  userID: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
+const staffSchema = new Schema({
   name: {
     type: String,
-    required: ture,
+    required: true,
   },
   fatherName: {
     type: String,
-    required: ture,
+    required: true,
   },
   motherName: {
     type: String,
-    required: ture,
-  },
-  password: {
-    type: String,
     required: true,
   },
-  aadharNo: {
+  aadharNumber: {
     type: Number,
-    required: ture,
+    required: true,
+    unique: true,
   },
   joiningDate: {
-    type: Date,
-    required: true,
-  },
-  branch: {
-    type: String,
-    required: true,
-  },
-  post: {
     type: String,
     required: true,
   },
@@ -51,7 +35,6 @@ const teacherSchema = new Schema({
     },
     email: {
       type: String,
-      required: true,
     },
   },
   address: {
@@ -63,22 +46,18 @@ const teacherSchema = new Schema({
       {
         course: {
           type: String,
-          required: true,
         },
         branch: {
           type: String,
         },
         yearOfPassing: {
           type: String,
-          required: true,
         },
         marks: {
           type: Number,
-          required: true,
         },
       },
     ],
-    required: true,
   },
   experience: {
     type: [
@@ -88,20 +67,16 @@ const teacherSchema = new Schema({
         },
         yearOfExperience: {
           type: Number,
-          required: true,
         },
         salary: {
           type: Number,
-          required: true,
           default: 0,
         },
         role: {
           type: String,
-          required: true,
         },
       },
     ],
-    required: true,
   },
   refreshToken: {
     type: String,
@@ -109,4 +84,4 @@ const teacherSchema = new Schema({
   },
 });
 
-export default Teacher = mongoose.model("Teacher", teacherSchema);
+export default Staff = mongoose.model("Staff", staffSchema);
