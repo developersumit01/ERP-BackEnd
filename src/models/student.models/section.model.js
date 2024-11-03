@@ -6,12 +6,12 @@ const sectionSchema = new Schema({
     required: true,
   },
   course: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Course",
     required: true,
   },
   branch: {
-    type: [Schema.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "Branch",
   },
   session: {

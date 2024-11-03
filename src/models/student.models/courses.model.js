@@ -14,7 +14,7 @@ const courseSchema = new Schema({
     required: true,
   },
   branches: {
-    type: [Schema.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "Branch",
   },
 });

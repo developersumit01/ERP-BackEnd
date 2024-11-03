@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const libraryRecordSchema = new Schema({
   studentID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Student",
     required: true,
   },
@@ -14,7 +14,7 @@ const libraryRecordSchema = new Schema({
           required: true,
         },
         book: {
-          type: Schema.ObjectId,
+          type: Schema.Types.ObjectId,
           ref: "Book",
         },
         issueDate: {

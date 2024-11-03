@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import AddressSchema from "../../utils/AddressSchema";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const teacherSchema = new Schema({
   userID: {
@@ -108,5 +110,41 @@ const teacherSchema = new Schema({
     required: true,
   },
 });
+
+teacherSchema.pre("save", async function (next) {
+  if (!this.password.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+teacherSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+teacherSchema.methods.generateRefereshTeken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      userID: this.userID,
+      name: this.name,
+    },
+    process.env.REFRESH_TOKEN_KEY,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
+teacherSchema.methods.generateAccessTeken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      userID: this.userID,
+    },
+    process.env.ACCESS_TOKEN_KEY,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
 
 export default Teacher = mongoose.model("Teacher", teacherSchema);

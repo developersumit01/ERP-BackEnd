@@ -2,7 +2,7 @@ import mongoose, { mongo, Schema } from "mongoose";
 
 const teacherAttandanceSchema = new Schema({
   teacherID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Teacher",
   },
   session: {

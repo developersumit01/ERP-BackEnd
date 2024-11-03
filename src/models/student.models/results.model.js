@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const resultSchema = new Schema({
   studentID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Student",
     required: true,
   },
@@ -27,7 +27,7 @@ const resultSchema = new Schema({
   subjects: [
     {
       subjectID: {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Subject",
         required: true,
       },
@@ -44,7 +44,7 @@ const resultSchema = new Schema({
     },
   ],
   cop: {
-    type: [Schema.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "Subject",
   },
 });

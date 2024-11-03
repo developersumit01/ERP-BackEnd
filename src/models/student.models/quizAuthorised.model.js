@@ -2,17 +2,17 @@ import mongoose, { Schema } from "mongoose";
 
 const quizAuthorisedSchema = new Schema({
   branchID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Branch",
     required: true,
   },
   courseID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Course",
     required: true,
   },
   quizID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Quiz",
     required: true,
   },

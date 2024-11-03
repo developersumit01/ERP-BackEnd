@@ -2,12 +2,12 @@ import mongoose, { Schema } from "mongoose";
 
 const quizSubmittedSchema = new Schema({
   studentID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Student",
     required: true,
   },
   quizID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Quiz",
     required: true,
   },

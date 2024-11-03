@@ -11,12 +11,12 @@ const subjectSchema = new Schema({
     unique: true,
   },
   course: {
-    type: [Schema.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "Course",
     required: true,
   },
   branch: {
-    type: [Schema.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "Branch",
     required: true,
   },

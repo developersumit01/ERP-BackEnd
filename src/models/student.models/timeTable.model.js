@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const timeTableSchema = new Schema({
   section: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Section",
   },
   timeTable: {
@@ -16,11 +16,11 @@ const timeTableSchema = new Schema({
           type: [
             {
               teacher: {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: "Teacher",
               },
               subject: {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: "Subject",
               },
               time: {

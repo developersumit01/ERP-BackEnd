@@ -2,7 +2,7 @@ import mongoose, { mongo, Schema } from "mongoose";
 
 const studentAttandanceSchema = new Schema({
   studentID: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Student",
   },
   semester: {
@@ -24,7 +24,7 @@ const studentAttandanceSchema = new Schema({
           type: [
             {
               subject: {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: "Subject",
               },
               mark: {
