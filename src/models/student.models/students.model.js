@@ -16,6 +16,10 @@ const studentSchema = new Schema({
     type: String,
     required: ture,
   },
+  photo: {
+    type: String,
+    required: true,
+  },
   fatherName: {
     type: String,
     required: ture,
