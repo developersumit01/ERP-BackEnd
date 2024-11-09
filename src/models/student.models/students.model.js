@@ -4,6 +4,20 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const studentSchema = new Schema({
+  studentID: {
+    type: {
+      data: {
+        typeNumber,
+        unique: true,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
+  },
   rollNo: {
     type: {
       data: {

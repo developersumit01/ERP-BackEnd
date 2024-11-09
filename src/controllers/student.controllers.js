@@ -1,3 +1,5 @@
+import { COLLEGE_CODE } from "../constants.js";
+import { Student } from "../models/student.models/students.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 const registerStudent = asyncHandler(async (req, res) => {
   /*
@@ -31,4 +33,24 @@ const registerStudent = asyncHandler(async (req, res) => {
     country,
     pinCode,
   } = req.body;
+
+  const studentData = {
+    name,
+    fatherName,
+    motherName,
+    course,
+    aadharNo,
+    addmissionSemester,
+    currentSemester,
+    mobileNo,
+    email,
+    homeMobile,
+    address,
+    city,
+    state,
+    country,
+    pinCode,
+  };
+  const totalStudent = await Student.find();
+  studentData.studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
 });
