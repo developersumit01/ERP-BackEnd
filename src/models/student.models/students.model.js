@@ -35,7 +35,6 @@ const studentSchema = new Schema({
   },
   section: {
     type: String,
-    required: true,
   },
   password: {
     type: String,

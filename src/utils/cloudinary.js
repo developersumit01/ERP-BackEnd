@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import { APIError } from "./APIError";
 // Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,7 +19,10 @@ const uploadFileOnCloudinary = async (localFilePath) => {
       }
     )
     .catch((error) => {
-      console.log(error);
+      throw new APIError(
+        500,
+        "There is some error while storing the file on cloud"
+      );
     });
 
   return uploadResult;
