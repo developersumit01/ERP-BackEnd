@@ -2,25 +2,70 @@ import mongoose from "mongoose";
 
 const AddressSchema = new mongoose.Schema({
   address: {
-    type: String,
-    required: true,
+    type: {
+      data: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
+    },
   },
   city: {
-    type: String,
-    required: true,
+    type: {
+      data: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
+    },
   },
   state: {
-    type: String,
-    required: true,
+    type: {
+      data: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
+    },
   },
   country: {
-    type: String,
-    required: true,
-    default: "India",
+    type: {
+      data: {
+        type: String,
+        required: true,
+        default: "India",
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
+    },
   },
   pinCode: {
-    type: Number,
-    required: true,
+    type: {
+      data: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
+    },
   },
 });
 

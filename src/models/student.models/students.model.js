@@ -5,70 +5,205 @@ import jwt from "jsonwebtoken";
 
 const studentSchema = new Schema({
   rollNo: {
-    type: Number,
-    unique: true,
+    type: {
+      data: {
+        type: Number,
+        unique: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   enrollmentNo: {
-    type: Number,
-    unique: true,
+    type: {
+      data: {
+        type: Number,
+        unique: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   name: {
-    type: String,
-    required: ture,
+    type: {
+      data: {
+        type: String,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   photo: {
-    type: String,
-    required: true,
+    type: {
+      data: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   fatherName: {
-    type: String,
-    required: ture,
+    type: {
+      data: {
+        type: String,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   motherName: {
-    type: String,
-    required: ture,
+    type: {
+      data: {
+        type: String,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   course: {
-    type: Schema.Types.ObjectId,
-    ref: "Course",
-    required: true,
+    type: {
+      data: {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   section: {
-    type: String,
+    type: {
+      data: {
+        type: String,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   password: {
     type: String,
     required: true,
   },
   aadharNo: {
-    type: Number,
-    required: ture,
+    type: {
+      data: {
+        type: Number,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   addmissionSession: {
-    type: String,
-    required: ture,
+    type: {
+      data: {
+        type: String,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   addmissionSemester: {
-    type: Number,
-    required: ture,
+    type: {
+      data: {
+        type: Number,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   currentSemester: {
-    type: Number,
-    required: ture,
+    type: {
+      data: {
+        type: Number,
+        required: ture,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
   },
   contact: {
     mobileNo: {
-      type: Number,
-      required: true,
-      unique: true,
+      type: {
+        data: {
+          type: Number,
+          required: true,
+          unique: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
     },
     email: {
-      type: String,
-      required: true,
+      type: {
+        data: {
+          type: String,
+          required: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
     },
     homeMobile: {
-      type: Number,
-      required: true,
+      type: {
+        data: {
+          type: Number,
+          required: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
     },
   },
   address: {
@@ -81,10 +216,46 @@ const studentSchema = new Schema({
   },
   qualifications: [
     {
-      course: String,
-      branch: String,
-      yearOfPassing: String,
-      marks: Number,
+      course: {
+        data: {
+          type: String,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
+      branch: {
+        data: {
+          type: String,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
+      yearOfPassing: {
+        data: {
+          type: Number,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
+      marks: {
+        data: {
+          type: Number,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
     },
   ],
 });
@@ -125,4 +296,4 @@ studentSchema.methods.generateAccessTeken = function () {
   );
 };
 
-export default Student = mongoose.model("Student", studentSchema);
+export const Student = mongoose.model("Student", studentSchema);
