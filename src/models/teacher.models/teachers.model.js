@@ -5,56 +5,224 @@ import jwt from "jsonwebtoken";
 
 const teacherSchema = new Schema({
   userID: {
-    type: Number,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "User ID",
+      },
+      value: {
+        type: Number,
+        required: true,
+        unique: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     unique: true,
     required: true,
   },
   name: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: ture,
   },
   fatherName: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Father Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: ture,
   },
   motherName: {
-    type: String,
-    required: ture,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Mother Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
+    required: true,
   },
   password: {
     type: String,
     required: true,
   },
   aadharNo: {
-    type: Number,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Aadhar No",
+      },
+      value: {
+        type: Number,
+        required: true,
+        unique: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: ture,
   },
   joiningDate: {
-    type: Date,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Joining Date",
+      },
+      value: {
+        type: Date,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   branch: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Branch",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   post: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Post",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   salary: {
-    type: Number,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Salary",
+      },
+      value: {
+        type: Number,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   contact: {
     mobileNo: {
-      type: Number,
+      type: {
+        name: {
+          type: String,
+          required: true,
+          default: "Mobile No",
+        },
+        value: {
+          type: Number,
+          required: true,
+          unique: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
+      },
       required: true,
-      unique: true,
     },
     email: {
-      type: String,
-      required: true,
+      type: {
+        name: {
+          type: String,
+          required: true,
+          default: "Email",
+        },
+        value: {
+          type: String,
+          required: true,
+          unique: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
+      },
     },
+    required: true,
   },
   address: {
     type: AddressSchema,
@@ -64,18 +232,79 @@ const teacherSchema = new Schema({
     type: [
       {
         course: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Course",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
           required: true,
         },
         branch: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Branch",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
+          required: true,
         },
         yearOfPassing: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Year Of Passing",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
           required: true,
         },
         marks: {
-          type: Number,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Marks",
+            },
+            value: {
+              type: Number,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
           required: true,
         },
       },
@@ -85,25 +314,76 @@ const teacherSchema = new Schema({
   experience: {
     type: [
       {
-        organigation: {
-          type: String,
+        organization: {
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Organization",
+            },
+            value: {
+              type: String,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
         },
         yearOfExperience: {
-          type: Number,
-          required: true,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Year Of Experience",
+            },
+            value: {
+              type: Number,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
         },
         salary: {
-          type: Number,
-          required: true,
-          default: 0,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Salary",
+            },
+            value: {
+              type: Number,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
         },
         role: {
-          type: String,
-          required: true,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Role",
+            },
+            value: {
+              type: String,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
         },
       },
     ],
-    required: true,
   },
   refreshToken: {
     type: String,
