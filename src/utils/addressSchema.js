@@ -12,6 +12,11 @@ const AddressSchema = new mongoose.Schema({
         required: true,
         default: true,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Address",
+      },
     },
   },
   city: {
@@ -25,6 +30,11 @@ const AddressSchema = new mongoose.Schema({
         required: true,
         default: true,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "City",
+      },
     },
   },
   state: {
@@ -37,6 +47,11 @@ const AddressSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: true,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "State",
       },
     },
   },
@@ -52,6 +67,11 @@ const AddressSchema = new mongoose.Schema({
         required: true,
         default: true,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Country",
+      },
     },
   },
   pinCode: {
@@ -64,6 +84,11 @@ const AddressSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: true,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "PIN Code",
       },
     },
   },
