@@ -7,7 +7,7 @@ const studentSchema = new Schema({
   studentID: {
     type: {
       data: {
-        typeNumber,
+        type:Number,
         unique: true,
         required: true,
       },
