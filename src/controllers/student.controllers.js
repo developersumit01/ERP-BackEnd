@@ -1,6 +1,6 @@
 import { COLLEGE_CODE } from "../constants.js";
 import { Student } from "../models/student.models/students.model.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
+import asyncHandler from "../utils/asyncHandler.js";
 const registerStudent = asyncHandler(async (req, res) => {
   /*
             rollNo -> this will generate when the all the addmission will close, then after sorting the data by name and branch the rollNo will generate,
@@ -54,3 +54,5 @@ const registerStudent = asyncHandler(async (req, res) => {
   const totalStudent = await Student.find();
   studentData.studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
 });
+
+export { registerStudent };

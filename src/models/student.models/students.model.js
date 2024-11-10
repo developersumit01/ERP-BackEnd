@@ -63,7 +63,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: String,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
@@ -99,7 +99,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: String,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
@@ -117,7 +117,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: String,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
@@ -211,7 +211,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: String,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
@@ -229,7 +229,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: Number,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
@@ -247,7 +247,7 @@ const studentSchema = new Schema({
     type: {
       value: {
         type: Number,
-        required: ture,
+        required: true,
       },
       editable: {
         type: Boolean,
