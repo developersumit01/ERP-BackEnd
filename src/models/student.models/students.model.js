@@ -6,8 +6,8 @@ import jwt from "jsonwebtoken";
 const studentSchema = new Schema({
   studentID: {
     type: {
-      data: {
-        type:Number,
+      value: {
+        type: Number,
         unique: true,
         required: true,
       },
@@ -15,12 +15,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Student ID",
       },
     },
   },
   rollNo: {
     type: {
-      data: {
+      value: {
         type: Number,
         unique: true,
       },
@@ -28,12 +33,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Roll No",
       },
     },
   },
   enrollmentNo: {
     type: {
-      data: {
+      value: {
         type: Number,
         unique: true,
       },
@@ -42,11 +52,16 @@ const studentSchema = new Schema({
         required: true,
         default: false,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Enrollment No",
+      },
     },
   },
   name: {
     type: {
-      data: {
+      value: {
         type: String,
         required: ture,
       },
@@ -54,12 +69,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Name",
       },
     },
   },
   photo: {
     type: {
-      data: {
+      value: {
         type: String,
         required: true,
       },
@@ -67,12 +87,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Photo",
       },
     },
   },
   fatherName: {
     type: {
-      data: {
+      value: {
         type: String,
         required: ture,
       },
@@ -80,12 +105,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Father Name",
       },
     },
   },
   motherName: {
     type: {
-      data: {
+      value: {
         type: String,
         required: ture,
       },
@@ -94,11 +124,16 @@ const studentSchema = new Schema({
         required: true,
         default: false,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Mother Name",
+      },
     },
   },
   course: {
     type: {
-      data: {
+      value: {
         type: Schema.Types.ObjectId,
         ref: "Course",
         required: true,
@@ -108,17 +143,45 @@ const studentSchema = new Schema({
         required: true,
         default: false,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Course",
+      },
+    },
+  },
+  branch: {
+    type: {
+      value: {
+        type: Schema.Types.ObjectId,
+        ref: "Branch",
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Branch",
+      },
     },
   },
   section: {
     type: {
-      data: {
+      value: {
         type: String,
       },
       editable: {
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Section",
       },
     },
   },
@@ -128,7 +191,7 @@ const studentSchema = new Schema({
   },
   aadharNo: {
     type: {
-      data: {
+      value: {
         type: Number,
         required: true,
       },
@@ -137,11 +200,16 @@ const studentSchema = new Schema({
         required: true,
         default: false,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Aadhar No",
+      },
     },
   },
   addmissionSession: {
     type: {
-      data: {
+      value: {
         type: String,
         required: ture,
       },
@@ -150,11 +218,16 @@ const studentSchema = new Schema({
         required: true,
         default: false,
       },
+      name: {
+        type: String,
+        required: true,
+        default: "Addmission Session",
+      },
     },
   },
   addmissionSemester: {
     type: {
-      data: {
+      value: {
         type: Number,
         required: ture,
       },
@@ -162,12 +235,17 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Addmission Semester",
       },
     },
   },
   currentSemester: {
     type: {
-      data: {
+      value: {
         type: Number,
         required: ture,
       },
@@ -175,13 +253,18 @@ const studentSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+      },
+      name: {
+        type: String,
+        required: true,
+        default: "Current Semester",
       },
     },
   },
   contact: {
     mobileNo: {
       type: {
-        data: {
+        value: {
           type: Number,
           required: true,
           unique: true,
@@ -191,11 +274,16 @@ const studentSchema = new Schema({
           required: true,
           default: true,
         },
+        name: {
+          type: String,
+          required: true,
+          default: "Mobile No",
+        },
       },
     },
     email: {
       type: {
-        data: {
+        value: {
           type: String,
           required: true,
         },
@@ -204,11 +292,16 @@ const studentSchema = new Schema({
           required: true,
           default: true,
         },
+        name: {
+          type: String,
+          required: true,
+          default: "Email ID",
+        },
       },
     },
     homeMobile: {
       type: {
-        data: {
+        value: {
           type: Number,
           required: true,
         },
@@ -216,6 +309,11 @@ const studentSchema = new Schema({
           type: Boolean,
           required: true,
           default: true,
+        },
+        name: {
+          type: String,
+          required: true,
+          default: "Home Mobile No",
         },
       },
     },
@@ -231,7 +329,7 @@ const studentSchema = new Schema({
   qualifications: [
     {
       course: {
-        data: {
+        value: {
           type: String,
         },
         editable: {
@@ -241,7 +339,7 @@ const studentSchema = new Schema({
         },
       },
       branch: {
-        data: {
+        value: {
           type: String,
         },
         editable: {
@@ -251,7 +349,7 @@ const studentSchema = new Schema({
         },
       },
       yearOfPassing: {
-        data: {
+        value: {
           type: Number,
         },
         editable: {
@@ -261,7 +359,7 @@ const studentSchema = new Schema({
         },
       },
       marks: {
-        data: {
+        value: {
           type: Number,
         },
         editable: {
