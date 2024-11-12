@@ -5,33 +5,137 @@ import bcrypt from "bcryptjs";
 
 const staffSchema = new Schema({
   userID: {
-    type: Number,
-    unique: true,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "User ID",
+      },
+      value: {
+        type: Number,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   name: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   fatherName: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Father Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   motherName: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Mother Name",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   aadharNumber: {
-    type: Number,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Aadhar No",
+      },
+      value: {
+        type: Number,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
     unique: true,
   },
   joiningDate: {
-    type: String,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Joining Date",
+      },
+      value: {
+        type: String,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   salary: {
-    type: Number,
+    type: {
+      name: {
+        type: String,
+        required: true,
+        default: "Salary",
+      },
+      value: {
+        type: Number,
+        required: true,
+      },
+      editable: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    },
     required: true,
   },
   password: {
@@ -40,12 +144,42 @@ const staffSchema = new Schema({
   },
   contact: {
     mobileNo: {
-      type: Number,
+      type: {
+        name: {
+          type: String,
+          required: true,
+          default: "Mobile No",
+        },
+        value: {
+          type: Number,
+          required: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
       required: true,
       unique: true,
     },
     email: {
-      type: String,
+      type: {
+        name: {
+          type: String,
+          required: true,
+          default: "Email",
+        },
+        value: {
+          type: String,
+          required: true,
+        },
+        editable: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+      },
     },
   },
   address: {
@@ -56,16 +190,77 @@ const staffSchema = new Schema({
     type: [
       {
         course: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Course",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
         branch: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Branch",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
         yearOfPassing: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Year Of Passing",
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
         marks: {
-          type: Number,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Marks",
+            },
+            value: {
+              type: Numbr,
+              required: true,
+              default: 0,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
       },
     ],
@@ -74,17 +269,73 @@ const staffSchema = new Schema({
     type: [
       {
         organigation: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Organization",
+            },
+            value: {
+              type: String,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
         yearOfExperience: {
-          type: Number,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Year Of Experience",
+            },
+            value: {
+              type: Number,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
         salary: {
-          type: Number,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Salary",
+            },
+            value: {
+              type: Number,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
           default: 0,
         },
         role: {
-          type: String,
+          type: {
+            name: {
+              type: String,
+              required: true,
+              default: "Role",
+            },
+            value: {
+              type: String,
+            },
+            editable: {
+              type: Boolean,
+              required: true,
+              default: true,
+            },
+          },
         },
       },
     ],
