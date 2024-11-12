@@ -324,7 +324,9 @@ const studentSchema = new Schema({
   },
   refreshToken: {
     type: String,
-    required: true,
+  },
+  otp: {
+    type: String,
   },
   qualifications: [
     {

@@ -163,12 +163,12 @@ const teacherSchema = new Schema({
     },
     required: true,
   },
-  salary: {
+  currentSalary: {
     type: {
       name: {
         type: String,
         required: true,
-        default: "Salary",
+        default: "Current Salary",
       },
       value: {
         type: Number,
@@ -388,6 +388,9 @@ const teacherSchema = new Schema({
   refreshToken: {
     type: String,
     required: true,
+  },
+  otp: {
+    type: String,
   },
 });
 
