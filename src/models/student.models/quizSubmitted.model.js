@@ -17,7 +17,7 @@ const quizSubmittedSchema = new Schema({
   },
 });
 
-export default QuizSubmitted = mongoose.model(
+export const QuizSubmitted = mongoose.model(
   "QuizSubmitted",
   quizSubmittedSchema
 );

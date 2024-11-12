@@ -38,7 +38,7 @@ const studentAttandanceSchema = new Schema({
   },
 });
 
-export default StudentAttandance = mongoose.model(
+export const StudentAttandance = mongoose.model(
   "StudentAttandance",
   studentAttandanceSchema
 );

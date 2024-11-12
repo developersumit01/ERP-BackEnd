@@ -430,4 +430,4 @@ teacherSchema.methods.generateAccessTeken = function () {
   );
 };
 
-export default Teacher = mongoose.model("Teacher", teacherSchema);
+export const Teacher = mongoose.model("Teacher", teacherSchema);

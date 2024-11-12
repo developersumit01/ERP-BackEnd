@@ -30,7 +30,7 @@ const libraryRecordSchema = new Schema({
   },
 });
 
-export default LibraryRecord = mongoose.model(
+export const LibraryRecord = mongoose.model(
   "LibraryRecord",
   libraryRecordSchema
 );

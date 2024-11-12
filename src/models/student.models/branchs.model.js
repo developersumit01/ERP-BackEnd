@@ -12,4 +12,4 @@ const branchSchema = new Schema({
   },
 });
 
-export default Branch = mongoose.model("Branch", branchSchema);
+export const Branch = mongoose.model("Branch", branchSchema);

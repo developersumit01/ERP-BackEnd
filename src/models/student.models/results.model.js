@@ -49,4 +49,4 @@ const resultSchema = new Schema({
   },
 });
 
-export default Result = mongoose.model("Result", resultSchema);
+export const Result = mongoose.model("Result", resultSchema);

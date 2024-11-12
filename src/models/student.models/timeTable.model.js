@@ -35,4 +35,4 @@ const timeTableSchema = new Schema({
   },
 });
 
-export default TimeTable = mongoose.model("TimeTable", timeTableSchema);
+export const TimeTable = mongoose.model("TimeTable", timeTableSchema);

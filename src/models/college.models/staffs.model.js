@@ -384,4 +384,4 @@ staffSchema.methods.generateAccessTeken = function () {
     }
   );
 };
-export default Staff = mongoose.model("Staff", staffSchema);
+export const Staff = mongoose.model("Staff", staffSchema);

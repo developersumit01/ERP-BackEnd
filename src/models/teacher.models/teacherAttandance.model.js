@@ -34,7 +34,7 @@ const teacherAttandanceSchema = new Schema({
   },
 });
 
-export default TeacherAttandance = mongoose.model(
+export const TeacherAttandance = mongoose.model(
   "TeacherAttandance",
   teacherAttandanceSchema
 );

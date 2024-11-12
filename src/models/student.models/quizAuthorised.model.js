@@ -22,7 +22,7 @@ const quizAuthorisedSchema = new Schema({
   },
 });
 
-export default QuizAuthorised = mongoose.model(
+export const QuizAuthorised = mongoose.model(
   "QuizAuthorised",
   quizAuthorisedSchema
 );
