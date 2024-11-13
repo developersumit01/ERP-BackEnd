@@ -27,7 +27,6 @@ const studentSchema = new Schema({
         type: {
             value: {
                 type: Number,
-                unique: true,
             },
             editable: {
                 type: Boolean,
@@ -45,7 +44,6 @@ const studentSchema = new Schema({
         type: {
             value: {
                 type: Number,
-                unique: true,
             },
             editable: {
                 type: Boolean,

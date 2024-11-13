@@ -3,6 +3,7 @@ import { COLLEGE_CODE } from "../constants.js";
 import { Student } from "../models/student.models/students.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { APIError } from "../utils/APIError.js";
+import uploadFileOnCloudinary from "../utils/cloudinary.js";
 const registerStudent = asyncHandler(async (req, res) => {
     /*
             rollNo -> this will generate when the all the addmission will close, then after sorting the data by name and branch the rollNo will generate,
@@ -22,6 +23,8 @@ const registerStudent = asyncHandler(async (req, res) => {
         name,
         fatherName,
         motherName,
+        gender,
+        dateOfBirth,
         course, // ObjetcID of the course model
         branch, // ObjectID of the Branch model
         aadharNo,
@@ -31,18 +34,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         email,
     } = req.body;
 
-    const studentData = {
-        name,
-        fatherName,
-        motherName,
-        course,
-        branch,
-        aadharNo,
-        addmissionSemester,
-        currentSemester,
-        mobileNo,
-        email,
-    };
+    const defaultPassword = `${name}@${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}`;
 
     const studentImagePath = req.file?.path;
     if (!studentImagePath) {
@@ -50,6 +42,79 @@ const registerStudent = asyncHandler(async (req, res) => {
             500,
             "There is some error while getting the student image provided by you"
         );
+    }
+    // const cloudinaryURL = await uploadFileOnCloudinary(studentImagePath);
+    const cloudinaryURL = {
+        url: studentImagePath,
+    };
+    if (!cloudinaryURL.url) {
+        throw new APIError(
+            500,
+            "There is some internal error while uploading the file"
+        );
+    }
+
+    // const tSession = mongoose.startSession();
+
+    // (await tSession).startTransaction({
+    //     readPreference: "primary",
+    //     readConcern: { level: "local" },
+    //     writeConcern: { w: "majority" },
+    // });
+    const totalStudent = await Student.find(); //.session(tSession);
+    const studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
+    const studentData = {
+        studentID: {
+            value: studentID,
+        },
+        name: {
+            value: name,
+        },
+        fatherName: {
+            value: fatherName,
+        },
+        motherName: {
+            value: motherName,
+        },
+        gender: {
+            value: gender,
+        },
+        dateOfBirth: {
+            value: dateOfBirth,
+        },
+        course: {
+            value: new mongoose.Types.ObjectId(1001),
+        },
+        branch: {
+            value: new mongoose.Types.ObjectId(1002),
+        },
+        aadharNo: {
+            value: aadharNo,
+        },
+        addmissionSemester: {
+            value: addmissionSemester,
+        },
+        currentSemester: {
+            value: currentSemester,
+        },
+        mobileNo: {
+            value: mobileNo,
+        },
+        email: {
+            value: email,
+        },
+        password: defaultPassword,
+        photo: {
+            value: cloudinaryURL.url,
+        },
+        homeMobile: {
+            value: 8574963258,
+        },
+    };
+
+    const result = await Student.create(studentData);
+    if (!result) {
+        throw new APIError(500, "error while saving the data");
     }
 });
 

@@ -1,10 +1,11 @@
 import { APIError } from "./APIError.js";
 const asyncHandler = (requestHandler) => {
-  return (req, res, next) => {
-    Promise.resolve(requestHandler(req, res, next)).catch((err) => {
-      throw new APIError(400, err?.message);
-    });
-  };
+    return (req, res, next) => {
+        Promise.resolve(requestHandler(req, res, next)).catch((err) => {
+            console.log(err);
+            throw new APIError(400, err?.message);
+        });
+    };
 };
 
 // NOTE:
