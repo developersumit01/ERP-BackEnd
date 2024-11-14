@@ -227,6 +227,7 @@ const studentSchema = new Schema({
             value: {
                 type: Number,
                 required: true,
+                unique: true,
             },
             editable: {
                 type: Boolean,

@@ -54,14 +54,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         );
     }
 
-    // const tSession = mongoose.startSession();
-
-    // (await tSession).startTransaction({
-    //     readPreference: "primary",
-    //     readConcern: { level: "local" },
-    //     writeConcern: { w: "majority" },
-    // });
-    const totalStudent = await Student.find(); //.session(tSession);
+    const totalStudent = await Student.find();
     const studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
     const studentData = {
         studentID: {
@@ -116,6 +109,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     if (!result) {
         throw new APIError(500, "error while saving the data");
     }
+    res.json(result);
 });
 
 export { registerStudent };
