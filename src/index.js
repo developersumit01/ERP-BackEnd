@@ -1,14 +1,18 @@
 import dotenv from "dotenv";
 import connectDB from "./database/ConnectDB.js";
-dotenv.config({ path: "./.env" });
+// This line is for production
+dotenv.config({ path: "./.env.production" });
+// This line is for development of the software
+// dotenv.config({ path: "./.env" });
 import { app } from "./app.js";
 
 connectDB()
-  .then(() => {
-    app.listen(process.env.PORT || 8080, () => {
-      console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    .then(() => {
+        console.log(process.env.DATA_BASE_URL);
+        app.listen(process.env.PORT || 8080, () => {
+            console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.log("MONGO db connection failed !!! ", err);
     });
-  })
-  .catch((err) => {
-    console.log("MONGO db connection failed !!! ", err);
-  });
