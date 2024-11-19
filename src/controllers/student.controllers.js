@@ -105,7 +105,26 @@ const registerStudent = asyncHandler(async (req, res) => {
         },
     };
 
-    const result = await Student.create(studentData);
+    const session = await mongoose.startSession();
+    // Step 2: Optional. Define options to use for the transaction
+    const transactionOptions = {
+        readPreference: "primary",
+        readConcern: { level: "local" },
+        writeConcern: { w: "majority" },
+    };
+    // Step 3: Use withTransaction to start a transaction, execute the callback, and commit (or abort on error)
+    // Note: The callback for withTransaction MUST be async and/or return a Promise.
+    let result;
+    try {
+        await session.withTransaction(async () => {
+            result = await Student.create([studentData], {
+                session: session,
+            });
+        }, transactionOptions);
+    } catch (error) {
+        console.log(error);
+        await session.endSession();
+    }
     if (!result) {
         throw new APIError(500, "error while saving the data");
     }

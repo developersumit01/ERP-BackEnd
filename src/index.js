@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import connectDB from "./database/ConnectDB.js";
 // This line is for production
-dotenv.config({ path: "./.env.production" });
+// dotenv.config({ path: "./.env.production" });
 // This line is for development of the software
-// dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env" });
 import { app } from "./app.js";
 
 connectDB()
