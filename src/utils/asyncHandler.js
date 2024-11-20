@@ -2,8 +2,10 @@ import { APIError } from "./APIError.js";
 const asyncHandler = (requestHandler) => {
     return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next)).catch((err) => {
-            console.log(err);
-            throw new APIError(400, err?.message);
+            // res.status(err.statusCode).send(err);
+            console.log("Hello from async handler");
+            res.json({ error: err });
+            throw new APIError(err.statusCode, err?.message);
         });
     };
 };

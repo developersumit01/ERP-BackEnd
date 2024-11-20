@@ -104,7 +104,7 @@ const registerStudent = asyncHandler(async (req, res) => {
             value: 8574963258,
         },
     };
-
+    // throw new APIError(500, "To check transaction");
     const session = await mongoose.startSession();
     // Step 2: Optional. Define options to use for the transaction
     const transactionOptions = {
@@ -114,15 +114,15 @@ const registerStudent = asyncHandler(async (req, res) => {
     };
     // Step 3: Use withTransaction to start a transaction, execute the callback, and commit (or abort on error)
     // Note: The callback for withTransaction MUST be async and/or return a Promise.
-    let result;
+    let result = undefined;
     try {
         await session.withTransaction(async () => {
             result = await Student.create([studentData], {
                 session: session,
             });
+            throw new APIError(500, "To check transaction");
         }, transactionOptions);
     } catch (error) {
-        console.log(error);
         await session.endSession();
     }
     if (!result) {
