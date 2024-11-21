@@ -17,7 +17,7 @@ steps to create a replica
 save the config file
 
 ~ run command in cmd
-command:- mongod --port 27017 --dbpath "C:\data\db" --bind_ip localhost 
+command:- mongod --port 27017 --dbpath "C:\data\db" --replSet rs0 --bind_ip localhost 
 
 NOTE: if replica in mongodb is not created then data will not be stored inside the database and throw an error
 

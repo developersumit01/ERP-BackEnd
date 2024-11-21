@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { COLLEGE_CODE } from "../constants.js";
+import { COLLEGE_CODE, TRANSACTION_OPTIONS } from "../constants.js";
 import { Student } from "../models/student.models/students.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { APIError } from "../utils/APIError.js";
@@ -107,11 +107,6 @@ const registerStudent = asyncHandler(async (req, res) => {
     // throw new APIError(500, "To check transaction");
     const session = await mongoose.startSession();
     // Step 2: Optional. Define options to use for the transaction
-    const transactionOptions = {
-        readPreference: "primary",
-        readConcern: { level: "local" },
-        writeConcern: { w: "majority" },
-    };
     // Step 3: Use withTransaction to start a transaction, execute the callback, and commit (or abort on error)
     // Note: The callback for withTransaction MUST be async and/or return a Promise.
     let result = undefined;
@@ -120,9 +115,9 @@ const registerStudent = asyncHandler(async (req, res) => {
             result = await Student.create([studentData], {
                 session: session,
             });
-            throw new APIError(500, "To check transaction");
-        }, transactionOptions);
+        }, TRANSACTION_OPTIONS);
     } catch (error) {
+        console.log(error);
         await session.endSession();
     }
     if (!result) {
