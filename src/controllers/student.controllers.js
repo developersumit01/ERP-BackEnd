@@ -4,21 +4,9 @@ import { Student } from "../models/student.models/students.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { APIError } from "../utils/APIError.js";
 import uploadFileOnCloudinary from "../utils/cloudinary.js";
+import { Course } from "../models/college.models/courses.model.js";
+import { Branch } from "../models/college.models/branchs.model.js";
 const registerStudent = asyncHandler(async (req, res) => {
-    /*
-            rollNo -> this will generate when the all the addmission will close, then after sorting the data by name and branch the rollNo will generate,
-
-            enrollmentNo -> this will generate before save the student data in databse automaticlly
-
-            password -> initial this data will same for everyone but after first time login the student have to reset their password of forget there password
-
-            addmissionSession -> this data will set according to which session the student get register the method to get the session we use Date class of the Node
-
-            qualifications -> this data should be entered by student itself after login
-
-            section -> section will set when the class successfuly start by HOD
-*/
-
     const {
         name,
         fatherName,
@@ -32,6 +20,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         currentSemester,
         mobileNo,
         email,
+        homeMobile,
     } = req.body;
 
     const defaultPassword = `${name}@${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}`;
@@ -43,75 +32,89 @@ const registerStudent = asyncHandler(async (req, res) => {
             "There is some error while getting the student image provided by you"
         );
     }
-    // const cloudinaryURL = await uploadFileOnCloudinary(studentImagePath);
-    const cloudinaryURL = {
-        url: studentImagePath,
-    };
+    const cloudinaryURL = await uploadFileOnCloudinary(studentImagePath);
     if (!cloudinaryURL.url) {
         throw new APIError(
             500,
             "There is some internal error while uploading the file"
         );
     }
-
+    // This logic is use to generate studentID
+    // studentID :- CurrentYear+CollegeCode+totalStudent
     const totalStudent = await Student.find();
     const studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
-    const studentData = {
-        studentID: {
-            value: studentID,
-        },
-        name: {
-            value: name,
-        },
-        fatherName: {
-            value: fatherName,
-        },
-        motherName: {
-            value: motherName,
-        },
-        gender: {
-            value: gender,
-        },
-        dateOfBirth: {
-            value: dateOfBirth,
-        },
-        course: {
-            value: new mongoose.Types.ObjectId(1001),
-        },
-        branch: {
-            value: new mongoose.Types.ObjectId(1002),
-        },
-        aadharNo: {
-            value: aadharNo,
-        },
-        addmissionSemester: {
-            value: addmissionSemester,
-        },
-        currentSemester: {
-            value: currentSemester,
-        },
-        mobileNo: {
-            value: mobileNo,
-        },
-        email: {
-            value: email,
-        },
-        password: defaultPassword,
-        photo: {
-            value: cloudinaryURL.url,
-        },
-        homeMobile: {
-            value: 8574963258,
-        },
-    };
-    // throw new APIError(500, "To check transaction");
+
+    const addmissionSession = `${new Date().getFullYear().toString().substring(2, 4)}${`${(new Date().getFullYear() + 1).toString().substring(2, 4)}`}`;
+
     const session = await mongoose.startSession();
-    // Step 2: Optional. Define options to use for the transaction
-    // Step 3: Use withTransaction to start a transaction, execute the callback, and commit (or abort on error)
-    // Note: The callback for withTransaction MUST be async and/or return a Promise.
     let result = undefined;
     try {
         await session.withTransaction(async () => {
+            const courseInfo = await Course.findOne({
+                courseName: course,
+            }).session(session);
+            const branchInfo = await Branch.findOne({
+                branchName: branch,
+            }).session(session);
+            if (!courseInfo || !branchInfo) {
+                throw new APIError(
+                    402,
+                    "There is some error while getting the course and branch information"
+                );
+            }
+            const studentData = {
+                studentID: {
+                    value: studentID,
+                },
+                name: {
+                    value: name,
+                },
+                fatherName: {
+                    value: fatherName,
+                },
+                motherName: {
+                    value: motherName,
+                },
+                gender: {
+                    value: gender,
+                },
+                dateOfBirth: {
+                    value: dateOfBirth,
+                },
+                course: {
+                    value: courseInfo._id,
+                },
+                branch: {
+                    value: branchInfo._id,
+                },
+                aadharNo: {
+                    value: aadharNo,
+                },
+                addmissionSemester: {
+                    value: addmissionSemester,
+                },
+                addmissionSession: {
+                    value: addmissionSession,
+                },
+                currentSemester: {
+                    value: currentSemester,
+                },
+                contact: {
+                    mobileNo: {
+                        value: mobileNo,
+                    },
+                    email: {
+                        value: email,
+                    },
+                    homeMobile: {
+                        value: homeMobile,
+                    },
+                },
+                password: defaultPassword,
+                photo: {
+                    value: cloudinaryURL.url,
+                },
+            };
             result = await Student.create([studentData], {
                 session: session,
             });

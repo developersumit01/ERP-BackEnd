@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { Branch } from "../models/student.models/branchs.model.js";
+import { Branch } from "../models/college.models/branchs.model.js";
 import { APIError } from "../utils/APIError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { TRANSACTION_OPTIONS } from "../constants.js";
-import { Course } from "../models/student.models/courses.model.js";
+import { Course } from "../models/college.models/courses.model.js";
 import { APIResponce } from "../utils/APIResponce.js";
 
 const addNewBranch = asyncHandler(async (req, res) => {
