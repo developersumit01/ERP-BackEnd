@@ -91,6 +91,11 @@ const studentSchema = new Schema({
                 required: true,
                 default: "Photo",
             },
+            publicID: {
+                type: String,
+                required: true,
+                unique: true,
+            },
         },
     },
     fatherName: {

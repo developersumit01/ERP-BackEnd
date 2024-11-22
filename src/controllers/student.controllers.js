@@ -3,9 +3,9 @@ import { COLLEGE_CODE, TRANSACTION_OPTIONS } from "../constants.js";
 import { Student } from "../models/student.models/students.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { APIError } from "../utils/APIError.js";
-import uploadFileOnCloudinary from "../utils/cloudinary.js";
 import { Course } from "../models/college.models/courses.model.js";
 import { Branch } from "../models/college.models/branchs.model.js";
+import { uploadFileOnCloudinary } from "../utils/cloudinary.js";
 const registerStudent = asyncHandler(async (req, res) => {
     const {
         name,
@@ -113,6 +113,7 @@ const registerStudent = asyncHandler(async (req, res) => {
                 password: defaultPassword,
                 photo: {
                     value: cloudinaryURL.url,
+                    publicID: cloudinaryURL.public_id,
                 },
             };
             result = await Student.create([studentData], {

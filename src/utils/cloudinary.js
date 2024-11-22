@@ -1,15 +1,17 @@
 import { v2 as cloudinary } from "cloudinary";
 import { APIError } from "./APIError.js";
 // Configuration
-
-const uploadFileOnCloudinary = async (localFilePath) => {
-    if (!localFilePath) return null;
-    // Cloudinary config should be provided inside the function
+const setCloudinaryConfiguration = () => {
     cloudinary.config({
         cloud_name: `${process.env.CLOUDINARY_CLOUD_NAME}`,
         api_key: `${process.env.CLOUDINARY_API_KEY}`,
         api_secret: `${process.env.CLOUDINARY_API_SECRET}`,
     });
+};
+const uploadFileOnCloudinary = async (localFilePath) => {
+    if (!localFilePath) return null;
+    // Cloudinary config should be provided inside the function
+    setCloudinaryConfiguration();
 
     const uploadResult = await cloudinary.uploader
         .upload(
@@ -28,7 +30,20 @@ const uploadFileOnCloudinary = async (localFilePath) => {
     return uploadResult;
 };
 
-export default uploadFileOnCloudinary;
+const deleteFileFromCloudinary = async (publicID) => {
+    let deleteResult = undefined;
+    try {
+        setCloudinaryConfiguration();
+        deleteResult = await cloudinary.uploader.destroy(publicID);
+    } catch (error) {
+        throw new APIError(500, "Error while deleting your file from cloud", [
+            error,
+        ]);
+    }
+    return deleteResult;
+};
+
+export { uploadFileOnCloudinary, deleteFileFromCloudinary };
 
 // Optimize delivery by resizing and applying auto-format and auto-quality
 
