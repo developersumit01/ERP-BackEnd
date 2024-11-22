@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { APIError } from "./APIError.js";
+import fs from "fs";
 // Configuration
 const setCloudinaryConfiguration = () => {
     cloudinary.config({
@@ -10,22 +11,26 @@ const setCloudinaryConfiguration = () => {
 };
 const uploadFileOnCloudinary = async (localFilePath) => {
     if (!localFilePath) return null;
+
     // Cloudinary config should be provided inside the function
     setCloudinaryConfiguration();
 
-    const uploadResult = await cloudinary.uploader
-        .upload(
+    let uploadResult = undefined;
+    try {
+        uploadResult = await cloudinary.uploader.upload(
             localFilePath, // path of the local file
             {
                 resource_type: "auto",
             }
-        )
-        .catch((error) => {
-            throw new APIError(
-                500,
-                "There is some error while storing the file on cloud"
-            );
-        });
+        );
+        fs.unlinkSync(localFilePath);
+    } catch (error) {
+        fs.unlinkSync(localFilePath);
+        throw new APIError(
+            500,
+            "There is some error while storing the file on cloud"
+        );
+    }
 
     return uploadResult;
 };

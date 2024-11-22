@@ -43,12 +43,6 @@ const addNewBranch = asyncHandler(async (req, res) => {
         await session.endSession();
         throw new APIError(error?.statusCode, error?.message, [error]);
     }
-    if (!result) {
-        throw new APIError(
-            500,
-            "There is some error while storing the branch information"
-        );
-    }
     res.status(201).json(
         new APIResponce(201, {}, "The branch added successfully")
     );

@@ -32,7 +32,12 @@ const registerStudent = asyncHandler(async (req, res) => {
             "There is some error while getting the student image provided by you"
         );
     }
-    const cloudinaryURL = await uploadFileOnCloudinary(studentImagePath);
+    // This line is commented for only test the code
+    // const cloudinaryURL = await uploadFileOnCloudinary(studentImagePath);
+    const cloudinaryURL = {
+        url: studentImagePath,
+        public_id: "publicId124569",
+    };
     if (!cloudinaryURL.url) {
         throw new APIError(
             500,
@@ -41,13 +46,12 @@ const registerStudent = asyncHandler(async (req, res) => {
     }
     // This logic is use to generate studentID
     // studentID :- CurrentYear+CollegeCode+totalStudent
-    const totalStudent = await Student.find();
-    const studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${totalStudent.length.toString().padStart(3, 0)}`;
 
     const addmissionSession = `${new Date().getFullYear().toString().substring(2, 4)}${`${(new Date().getFullYear() + 1).toString().substring(2, 4)}`}`;
 
     const session = await mongoose.startSession();
     let result = undefined;
+    // Stored data in database
     try {
         await session.withTransaction(async () => {
             const courseInfo = await Course.findOne({
@@ -61,6 +65,27 @@ const registerStudent = asyncHandler(async (req, res) => {
                     402,
                     "There is some error while getting the course and branch information"
                 );
+            }
+            const totalStudent = await Student.aggregate([
+                {
+                    $match: {
+                        "course.value": courseInfo._id,
+                    },
+                },
+                {
+                    $match: {
+                        "branch.value": branchInfo._id,
+                    },
+                },
+                {
+                    $match: {
+                        "addmissionSession.value": addmissionSession,
+                    },
+                },
+            ]);
+            const studentID = `${new Date().getFullYear().toString().substring(2, 4)}${COLLEGE_CODE}${branchInfo.branchCode}${(totalStudent.length + 1).toString().padStart(3, 0)}`;
+            if (!studentID) {
+                throw new APIError(500, "Not able to generate student ID");
             }
             const studentData = {
                 studentID: {
@@ -130,7 +155,40 @@ const registerStudent = asyncHandler(async (req, res) => {
     res.json(result);
 });
 
-export { registerStudent };
+const loginStudent = asyncHandler(async (req, res) => {
+    const { userID, password } = req.body;
+    try {
+        let studentID, rollNo, email;
+        if (userID.toString().length == 10) {
+            studentID = userID;
+        } else if (userID.toString().includes("@")) {
+            email = userID;
+        } else {
+            rollNo = userID;
+        }
+        const studentInfo = await Student.findOne({
+            $or: [
+                { "studentID.value": studentID },
+                { "email.value": email },
+                { "contact.rollNo.value": rollNo },
+            ],
+        });
+        if (!studentInfo) {
+            throw new APIError(402, "StudentID is invalid");
+        }
+        const isCorrect = await studentInfo.isPasswordCorrect(password);
+        if (!isCorrect) {
+            throw new APIError(402, "Incorrect password");
+        }
+        res.status(200).json({ studentID: studentInfo.studentID });
+    } catch (error) {
+        throw new APIError(500, error?.message, [error]);
+    }
+});
+
+const getStudentInfo = asyncHandler(async (req, res) => {});
+
+export { registerStudent, loginStudent };
 
 // This is the code for generating the student ID
 // I will put this thing in transaction
