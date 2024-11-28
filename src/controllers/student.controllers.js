@@ -6,6 +6,7 @@ import { APIError } from "../utils/APIError.js";
 import { Course } from "../models/college.models/courses.model.js";
 import { Branch } from "../models/college.models/branchs.model.js";
 import { uploadFileOnCloudinary } from "../utils/cloudinary.js";
+import { APIResponce } from "../utils/APIResponce.js";
 const registerStudent = asyncHandler(async (req, res) => {
     const {
         name,
@@ -186,9 +187,81 @@ const loginStudent = asyncHandler(async (req, res) => {
     }
 });
 
-const getStudentInfo = asyncHandler(async (req, res) => {});
+const getStudentInfo = asyncHandler(async (req, res) => {
+    //  first get the access token
+    const { studentID } = req.query;
+    let studentData = undefined;
+    console.log(studentID);
+    try {
+        const studentInfo = await Student.aggregate([
+            {
+                $match: {
+                    "studentID.value": +studentID,
+                },
+            },
+            {
+                $lookup: {
+                    from: "courses",
+                    localField: "course.value",
+                    foreignField: "_id",
+                    as: "courseName",
+                },
+            },
+            {
+                $lookup: {
+                    from: "branches",
+                    localField: "branch.value",
+                    foreignField: "_id",
+                    as: "branchName",
+                },
+            },
+            {
+                $project: {
+                    name: 1,
+                    studentID: 1,
+                    rollNo: 1,
+                    enrollmentNo: 1,
+                    photo: 1,
+                    dateOfBirth: 1,
+                    section: 1,
+                    fatherName: 1,
+                    motherName: 1,
+                    gender: 1,
+                    courseName: 1,
+                    course: 1,
+                    branch: 1,
+                    branchName: 1,
+                    aadharNo: 1,
+                    addmissionSemester: 1,
+                    currentSemester: 1,
+                    addmissionSession: 1,
+                    contact: 1,
+                    homeMobile: 1,
+                    address: 1,
+                },
+            },
+        ]);
+        studentData = studentInfo[0];
+        console.log(studentData.courseName);
+        studentData.course.value = studentInfo[0].courseName[0].courseName;
+        studentData.branch.value = studentInfo[0].branchName[0].branchName;
+        delete studentData.courseName;
+        delete studentData.branchName;
+        if (!studentInfo) {
+            throw new APIError(
+                500,
+                "There is some server error while geting your information"
+            );
+        }
+    } catch (error) {
+        throw new APIError(error?.statusCode, error?.message, [error]);
+    }
+    res.status(200).send(
+        new APIResponce(200, studentData, "seccessfully get the data")
+    );
+});
 
-export { registerStudent, loginStudent };
+export { registerStudent, loginStudent, getStudentInfo };
 
 // This is the code for generating the student ID
 // I will put this thing in transaction

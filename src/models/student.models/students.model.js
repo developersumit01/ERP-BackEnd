@@ -440,6 +440,7 @@ studentSchema.methods.generateAccessTeken = function () {
         {
             _id: this._id,
             rollNo: this.rollNo,
+            studentID: this.studentID,
         },
         process.env.ACCESS_TOKEN_KEY,
         {
