@@ -1,29 +1,28 @@
 import mongoose, { Schema } from "mongoose";
 
 const subjectSchema = new Schema({
-  subjectName: {
-    type: String,
-    required: true,
-  },
-  subjectCode: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  course: {
-    type: [Schema.Types.ObjectId],
-    ref: "Course",
-    required: true,
-  },
-  branch: {
-    type: [Schema.Types.ObjectId],
-    ref: "Branch",
-    required: true,
-  },
-  cradit: {
-    type: Number,
-    required: true,
-  },
+    subjectName: {
+        type: String,
+        required: true,
+    },
+    subjectCode: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    course: {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        required: true,
+    },
+    branchs: {
+        type: [Schema.Types.ObjectId],
+        ref: "Branch",
+    },
+    cradit: {
+        type: Number,
+        required: true,
+    },
 });
 
 export const Subject = mongoose.model("Subject", subjectSchema);
