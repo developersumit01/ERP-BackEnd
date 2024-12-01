@@ -4,7 +4,7 @@ import {
     getStudentInfo,
     updateStudentByStudent,
     loginStudent,
-} from "../controllers/student.controllers.js";
+} from "../controllers/student.controller.js";
 import { upload } from "../middlewares/multer.middlewere.js";
 import verifyJWT from "../middlewares/auth.middlewere.js";
 

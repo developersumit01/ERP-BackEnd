@@ -59,4 +59,13 @@ const addSubject = asyncHandler(async (req, res) => {
     );
 });
 
+// I will update this function very soon
+const updateSubject = asyncHandler(async (req, res) => {
+    const { subjectCode } = req.body;
+    const session = await mongoose.startSession();
+    session.withTransaction(async () => {
+        // const updatedSubject=await Subject.updateOne({subjectCode:subjectCode},)
+    });
+});
+
 export { addSubject };
