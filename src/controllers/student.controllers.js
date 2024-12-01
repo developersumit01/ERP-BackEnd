@@ -159,29 +159,36 @@ const registerStudent = asyncHandler(async (req, res) => {
 const loginStudent = asyncHandler(async (req, res) => {
     const { userID, password } = req.body;
     try {
-        let studentID, rollNo, email;
+        let studentID = undefined,
+            email = undefined;
         if (userID.toString().length == 10) {
-            studentID = userID;
-        } else if (userID.toString().includes("@")) {
+            studentID = +userID;
+        } else if (userID.includes("@")) {
             email = userID;
-        } else {
-            rollNo = userID;
         }
         const studentInfo = await Student.findOne({
             $or: [
                 { "studentID.value": studentID },
-                { "email.value": email },
-                { "contact.rollNo.value": rollNo },
+                { "contact.email.value": email },
             ],
         });
         if (!studentInfo) {
-            throw new APIError(402, "StudentID is invalid");
+            throw new APIError(402, "UserID is invalid");
         }
         const isCorrect = await studentInfo.isPasswordCorrect(password);
         if (!isCorrect) {
             throw new APIError(402, "Incorrect password");
         }
-        res.status(200).json({ studentID: studentInfo.studentID });
+        res.status(200).json(
+            new APIResponce(
+                200,
+                {
+                    studentID: studentID,
+                    Name: studentInfo.name,
+                },
+                "login successfull"
+            )
+        );
     } catch (error) {
         throw new APIError(500, error?.message, [error]);
     }
@@ -189,9 +196,9 @@ const loginStudent = asyncHandler(async (req, res) => {
 
 const getStudentInfo = asyncHandler(async (req, res) => {
     //  first get the access token
+    // const { studentID } = req.user;
     const { studentID } = req.query;
     let studentData = undefined;
-    console.log(studentID);
     try {
         const studentInfo = await Student.aggregate([
             {
@@ -241,18 +248,17 @@ const getStudentInfo = asyncHandler(async (req, res) => {
                 },
             },
         ]);
-        studentData = studentInfo[0];
-        console.log(studentData.courseName);
-        studentData.course.value = studentInfo[0].courseName[0].courseName;
-        studentData.branch.value = studentInfo[0].branchName[0].branchName;
-        delete studentData.courseName;
-        delete studentData.branchName;
         if (!studentInfo) {
             throw new APIError(
                 500,
                 "There is some server error while geting your information"
             );
         }
+        studentData = studentInfo[0];
+        studentData.course.value = studentInfo[0].courseName[0].courseName;
+        studentData.branch.value = studentInfo[0].branchName[0].branchName;
+        delete studentData.courseName;
+        delete studentData.branchName;
     } catch (error) {
         throw new APIError(error?.statusCode, error?.message, [error]);
     }
@@ -261,7 +267,35 @@ const getStudentInfo = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerStudent, loginStudent, getStudentInfo };
+const updateStudentByStudent = asyncHandler(async (req, res) => {
+    // this line is for testing the code
+    const { valueForUpdate, studentID } = req.body;
+    // const { studentID } = req.user;
+
+    try {
+        const update = await Student.updateOne(
+            { "studentID.value": +studentID },
+            { $set: valueForUpdate }
+        );
+        if (update.modifiedCount === 0) {
+            throw new APIError(
+                500,
+                "Their is some server error while updating your information"
+            );
+        }
+    } catch (error) {
+        console.log(error);
+        throw new APIError(error?.statusCode, error?.message);
+    }
+    res.send("The data seccessfully updated");
+});
+
+export {
+    registerStudent,
+    loginStudent,
+    getStudentInfo,
+    updateStudentByStudent,
+};
 
 // This is the code for generating the student ID
 // I will put this thing in transaction

@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { APIError } from "../utils/APIError";
+import { APIError } from "../utils/APIError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
-const verifyJWT = asyncHandler(async (req, res, next) => {
+const verifyJWT = asyncHandler(async (req, _, next) => {
     const accessToken = req.cookies?.accessToken;
     try {
         if (!accessToken) {
@@ -12,14 +12,10 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
             accessToken,
             process.env.ACCESS_TOKEN_KEY
         );
-        res.user = decodedAccessToken;
+        req.user = decodedAccessToken;
         next();
     } catch (error) {
-        throw new APIError(
-            500,
-            "Their is some server error while authorization process",
-            [error]
-        );
+        throw new APIError(401, "you are unauthorized", [error]);
     }
 });
 
