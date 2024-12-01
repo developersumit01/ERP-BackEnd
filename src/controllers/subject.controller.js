@@ -7,7 +7,15 @@ import { Subject } from "../models/student.models/subjects.model.js";
 import { APIResponce } from "../utils/APIResponce.js";
 
 const addSubject = asyncHandler(async (req, res) => {
-    const { subjectName, subjectCode, course, branchs, cradit } = req.body;
+    const {
+        subjectName,
+        subjectCode,
+        course,
+        branchs,
+        cradit,
+        SubjectType,
+        semester,
+    } = req.body;
     try {
         const session = await mongoose.startSession();
         session.withTransaction(async () => {
@@ -36,6 +44,8 @@ const addSubject = asyncHandler(async (req, res) => {
                 course: courseInfo._id,
                 branchs: branchArray,
                 cradit: cradit,
+                SubjectType: SubjectType,
+                semester: semester,
             };
             const result = await Subject.create([subjectInfoToSave], {
                 session: session,

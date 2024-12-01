@@ -38,3 +38,5 @@ const examFromSchema = new Schema({
         },
     ],
 });
+
+export const ExamForm = mongoose.model("ExamForm", examFromSchema);

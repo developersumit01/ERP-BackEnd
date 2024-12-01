@@ -23,6 +23,15 @@ const subjectSchema = new Schema({
         type: Number,
         required: true,
     },
+    subjectType: {
+        type: String,
+        required: true,
+        default: "Regular",
+    },
+    semester: {
+        type: Number,
+        required: true,
+    },
 });
 
 export const Subject = mongoose.model("Subject", subjectSchema);
