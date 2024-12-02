@@ -1,14 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const subjectSchema = new Schema({
-    subjectName: {
-        type: String,
-        required: true,
-    },
-    subjectCode: {
+    _id: {
         type: String,
         required: true,
         unique: true,
+    },
+    subjectName: {
+        type: String,
+        required: true,
     },
     course: {
         type: Schema.Types.ObjectId,
@@ -27,6 +27,10 @@ const subjectSchema = new Schema({
         type: String,
         required: true,
         default: "Regular",
+    },
+    subjectGroup: {
+        type: String,
+        required: true,
     },
     semester: {
         type: Number,

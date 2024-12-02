@@ -15,6 +15,7 @@ const addSubject = asyncHandler(async (req, res) => {
         cradit,
         SubjectType,
         semester,
+        subjectGroup,
     } = req.body;
     try {
         const session = await mongoose.startSession();
@@ -39,13 +40,14 @@ const addSubject = asyncHandler(async (req, res) => {
                 );
             }
             const subjectInfoToSave = {
-                subjectCode: subjectCode,
+                _id: subjectCode,
                 subjectName: subjectName,
                 course: courseInfo._id,
                 branchs: branchArray,
                 cradit: cradit,
                 SubjectType: SubjectType,
                 semester: semester,
+                subjectGroup: subjectGroup,
             };
             const result = await Subject.create([subjectInfoToSave], {
                 session: session,
